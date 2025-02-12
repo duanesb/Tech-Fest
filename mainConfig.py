@@ -15,6 +15,8 @@ def main(page: ft.Page):
         match(page.route):
             case _:
                 View("/home",HomeContent()).set(page)
+        
+        page.update()
     
     def view_pop(view):
         page.views.pop()
