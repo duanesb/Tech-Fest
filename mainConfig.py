@@ -8,6 +8,8 @@ def main(page: ft.Page):
     page.title = "Student ID Card"
     page.window.width = appWidth
     page.window.height = appHeight
+    page.bgcolor="white"
+    page.update()
 
     # ROUTING
     def route_change(route):
@@ -29,4 +31,4 @@ def main(page: ft.Page):
     # STARTING PAGE
     page.go("/home")
 
-ft.app(main)
+ft.app(main,assets_dir="assets")
