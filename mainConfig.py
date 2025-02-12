@@ -1,5 +1,5 @@
 import flet as ft
-from objects import appWidth,appHeight,View
+from objects import baseColor,appWidth,appHeight,View
 from views.home import HomeContent
 
 # FLET CONFIG
@@ -8,8 +8,7 @@ def main(page: ft.Page):
     page.title = "Student ID Card"
     page.window.width = appWidth
     page.window.height = appHeight
-    page.bgcolor="white"
-    page.update()
+    page.bgcolor = baseColor
 
     # ROUTING
     def route_change(route):
@@ -31,4 +30,4 @@ def main(page: ft.Page):
     # STARTING PAGE
     page.go("/home")
 
-ft.app(main,assets_dir="assets")
+ft.app(target=main,assets_dir="assets")
