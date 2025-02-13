@@ -2,13 +2,24 @@ import flet as ft
 from objects import appWidth,appHeight,ElevatedButton,TextField
 
 def RegisterContent():
+    def setCardText(e):
+        cardNameText.value = e.control.value
+        e.page.update()
+    
+    def setCardID(e):
+        cardIDText.value = e.control.value
+        e.page.update()
+
+    cardNameText = ft.Text("Full Name",size=30,weight="bold",width=200)
+    cardIDText = ft.Text("Student ID",size=30,weight="bold",width=200)
+
     content = ft.Container(width=appWidth,height=appHeight,
         content=ft.Column(
             controls=[
                 ft.Text("Register Student",size=35,color="black",weight="bold",
                         width=appWidth/1.5,text_align=ft.TextAlign.CENTER),
-                TextField("Name"),
-                TextField("Student ID"),
+                TextField("Name",setCardText),
+                TextField("Student ID",setCardID),
                 ft.Row(
                     controls=[
                         ElevatedButton("Return Home",lambda _:_.page.go("/home")),
@@ -18,7 +29,16 @@ def RegisterContent():
                 ),
                 ft.Stack([
                     ft.Image(src="idCardEmpty.png",width=appWidth*0.8),
-                    ft.Text()
+                    ft.Container(
+                        content=ft.Column(
+                            controls=[
+                                cardNameText,
+                                cardIDText
+                            ]
+                        ),
+                        left=38,
+                        top=50
+                    )
                 ])
             ],
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,

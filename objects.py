@@ -29,7 +29,7 @@ class ElevatedButton(ft.ElevatedButton):
         self.on_click=function
 
 class TextField(ft.TextField):
-    def __init__(self,label):
+    def __init__(self,label,function):
         super().__init__()
         self.label = label
         self.width = appWidth*0.7
@@ -37,3 +37,4 @@ class TextField(ft.TextField):
         self.border_width = 2
         self.border_color = "#878787"
         self.color = "black"
+        self.on_change=function
