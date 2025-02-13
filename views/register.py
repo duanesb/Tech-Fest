@@ -1,12 +1,44 @@
 import flet as ft
 from objects import appWidth,appHeight,ElevatedButton,TextField
 import sqlite3
+import qrcode
+from PIL import Image
+import numpy as np
 
 def RegisterContent():
     def registerStudent(e):
+        # GENERATE QR CODE
+        imagePath = f"assets/QRs/{textFieldID.value}.png"
+        qr = qrcode.make(textFieldID.value)
+        qr.save(imagePath)
+        
+        image = np.array(Image.open(imagePath).convert("RGBA"))
+
+        # Define white color in RGBA
+        white = np.array([255, 255, 255, 255])
+
+        # Create a mask where white pixels are detected (consider near-white pixels too)
+        white_mask = (image[:, :, :3] > [240, 240, 240]).all(axis=2)  # Detects near-white pixels
+
+        # Make white pixels transparent
+        image[white_mask] = [255, 255, 255, 0]  # White with 0 alpha (fully transparent)
+
+        # Remove black pixels (turn them into white)
+        black_mask = (image[:, :, :3] == [0, 0, 0]).all(axis=2)  # Detects black pixels
+        image[black_mask, :3] = [255, 255, 255]  # Change RGB to white
+        image[black_mask, 3] = image[black_mask, 3]  # Keep alpha unchanged
+
+        # Convert back to an image and save
+        output_image = Image.fromarray(image)
+        output_path = imagePath.replace(".png", ".png")
+        output_image.save(output_path)
+
+        # TRANSFORM IMAGE
+        
+        # STORE IN DATABASE
         conn = sqlite3.connect("attendance.db")
         cursor = conn.cursor()
-        cursor.execute("INSERT OR IGNORE INTO students (name, student_id) VALUES (?, ?)", (textFieldName.value,textFieldID.value))
+        cursor.execute("INSERT OR IGNORE INTO students (name, student_id, qr) VALUES (?, ?, ?)", (textFieldName.value,textFieldID.value, f"assets/QRs/{textFieldID.value}.png"))
         textFieldName.value = ""
         textFieldID.value = ""
         cardNameText.value = "Full Name"
