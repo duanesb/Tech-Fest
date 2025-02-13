@@ -9,8 +9,8 @@ def HomeContent():
                         width=appWidth/1.5,text_align=ft.TextAlign.CENTER),
                 ft.Row(
                     controls=[
-                        ElevatedButton("Register Student",None),
-                        ElevatedButton("View Entries",None),
+                        ElevatedButton("Register Student",lambda _:_.page.go("/register")),
+                        ElevatedButton("View Entries",lambda _:_.page.go("/entries")),
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 ),

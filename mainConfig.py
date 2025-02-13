@@ -1,6 +1,9 @@
 import flet as ft
 from objects import baseColor,appWidth,appHeight,View
+
 from views.home import HomeContent
+from views.register import RegisterContent
+from views.entries import EntriesContent
 
 # FLET CONFIG
 def main(page: ft.Page):
@@ -14,6 +17,10 @@ def main(page: ft.Page):
     def route_change(route):
         page.views.clear()
         match(page.route):
+            case "/register":
+                View("/register",RegisterContent()).set(page)
+            case "/entries":
+                View("/entries",EntriesContent()).set(page)
             case _:
                 View("/home",HomeContent()).set(page)
         
