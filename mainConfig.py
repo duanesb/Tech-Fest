@@ -1,9 +1,25 @@
+import qrcode
+import sqlite3
 import flet as ft
 from objects import baseColor,appWidth,appHeight,View
 
 from views.home import HomeContent
 from views.register import RegisterContent
 from views.entries import EntriesContent
+
+# DATABASE CONFIG
+conn = sqlite3.connect("attendance.db")
+cursor = conn.cursor()
+
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS students (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        student_id TEXT UNIQUE NOT NULL
+    )
+''')
+conn.commit()
+conn.close()
 
 # FLET CONFIG
 def main(page: ft.Page):
