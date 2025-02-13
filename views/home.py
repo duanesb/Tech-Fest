@@ -14,7 +14,7 @@ def HomeContent():
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 ),
-                ft.Image(src="idCard.png",width=appWidth*0.8),
+                ft.Image(src="idCardEmpty.png",width=appWidth*0.8),
             ],
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             spacing=30
