@@ -15,13 +15,13 @@ class View(ft.View):
         page.views.append(self)
 
 class ElevatedButton(ft.ElevatedButton):
-    def __init__(self,text,function,width,height,textSize):
+    def __init__(self,text,function):
         super().__init__()
         self.text = text
         self.bgcolor = "#353535"
         self.color = "white"
-        self.width = 175
-        self.height = 50
+        self.width = appWidth*0.35
+        self.height = 60
         self.style = ft.ButtonStyle(
             shape={"":ft.RoundedRectangleBorder(radius=5)},
             side=ft.BorderSide(width=5,color="#171717"),
