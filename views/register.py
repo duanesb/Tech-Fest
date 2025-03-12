@@ -9,7 +9,7 @@ def RegisterContent():
     def registerStudent(e):
         # GENERATE QR CODE
         imagePath = f"assets/QRs/{textFieldID.value}.png"
-        qr = qrcode.make(textFieldID.value)
+        qr = qrcode.make(f"{textFieldName.value}\n{textFieldID.value}")
         qr.save(imagePath)
         
         image = np.array(Image.open(imagePath).convert("RGBA"))
