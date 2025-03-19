@@ -4,9 +4,12 @@ import sqlite3
 import qrcode
 from PIL import Image
 import numpy as np
+import os
 
 def RegisterContent():
     def registerStudent(e):
+        # CREATE FOLDER FOR STUDENT
+        os.makedirs("assets/pl")
         # GENERATE QR CODE
         imagePath = f"assets/QRs/{textFieldID.value}.png"
         qr = qrcode.make(f"{textFieldName.value}\n{textFieldID.value}")
@@ -50,6 +53,11 @@ def RegisterContent():
 
     def setCardText(e):
         cardNameText.value = e.control.value
+        if(len(cardNameText.value) > 10):
+            cardNameText.size = 295/len(cardNameText.value)
+            print(cardNameText.size)
+        else:
+            cardNameText.size = 30
         e.page.update()
     
     def setCardID(e):
