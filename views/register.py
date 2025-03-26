@@ -9,7 +9,7 @@ import os
 def RegisterContent():
     def registerStudent(e):
         # CREATE FOLDER FOR STUDENT
-        os.makedirs("assets/pl")
+        # os.makedirs("assets/")
         # GENERATE QR CODE
         imagePath = f"assets/QRs/{textFieldID.value}.png"
         qr = qrcode.make(f"{textFieldName.value}\n{textFieldID.value}")
@@ -88,7 +88,12 @@ def RegisterContent():
                     ft.Container(
                         content=ft.Column(
                             controls=[
-                                cardNameText,
+                                ft.Container(
+                                    width=200,
+                                    height=80,
+                                    bgcolor="red",
+                                ),
+                                # cardNameText,
                                 cardIDText
                             ]
                         ),
