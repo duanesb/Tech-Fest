@@ -53,19 +53,14 @@ def RegisterContent():
 
     def setCardText(e):
         cardNameText.value = e.control.value
-        # if(len(cardNameText.value) > 10):
-        #     cardNameText.size = 295/len(cardNameText.value)
-        #     print(cardNameText.size)
-        # else:
-        #     cardNameText.size = 30
-        print(cardNameText.width)
+        print(cardNameText.size*len(cardNameText.value))
         e.page.update()
     
     def setCardID(e):
         cardIDText.value = e.control.value
         e.page.update()
 
-    cardNameText = ft.Text("Full Name",size=29,weight="bold",bgcolor="black")
+    cardNameText = ft.Text("Full Name",size=30,weight="bold",bgcolor="black", font_family="please")
     cardIDText = ft.Text("Student ID",size=30,weight="bold",width=200)
     textFieldName = TextField("Name",setCardText)
     textFieldID = TextField("Student ID",setCardID)
@@ -90,7 +85,7 @@ def RegisterContent():
                         content=ft.Column(
                             controls=[
                                 ft.Container(
-                                    width=200,
+                                    width=183,
                                     height=80,
                                     bgcolor="red",
                                     content=cardNameText

@@ -1,9 +1,13 @@
 import flet as ft
 
-global appWidth, appHeight, baseColor
+global appWidth, appHeight, baseColor, fonts
 appWidth = 500
 appHeight = 600
 baseColor = "white"
+fonts = {
+    "Kanit": "https://raw.githubusercontent.com/google/fonts/master/ofl/kanit/Kanit-Bold.ttf",
+    "please": "/Users/duanebollig/Desktop/VSCode/12th Grade/Tech-Fest/assets/JetBrainsMono-2/fonts/ttf/JetBrainsMono-Bold.ttf"
+}
 
 class View(ft.View):
     def __init__(self,route,content):

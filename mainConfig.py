@@ -1,7 +1,7 @@
 import qrcode
 import sqlite3
 import flet as ft
-from objects import baseColor,appWidth,appHeight,View
+from objects import baseColor,appWidth,appHeight,View,fonts
 
 from views.home import HomeContent
 from views.register import RegisterContent
@@ -23,12 +23,16 @@ conn.commit()
 conn.close()
 
 # FLET CONFIG
+
+
 def main(page: ft.Page):
     # CONFIG
     page.title = "Student ID Card"
     page.window.width = appWidth
     page.window.height = appHeight
     page.bgcolor = baseColor
+    page.fonts = fonts
+
 
     # ROUTING
     def route_change(route):
