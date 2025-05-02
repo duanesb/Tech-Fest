@@ -6,6 +6,8 @@ from objects import baseColor,appWidth,appHeight,View,fonts
 from views.home import HomeContent
 from views.register import RegisterContent
 from views.entries import EntriesContent
+from views.qrScanner import qrScannerContent
+from views.attendance import AttendanceContent
 
 # DATABASE CONFIG
 conn = sqlite3.connect("attendance.db")
@@ -42,6 +44,10 @@ def main(page: ft.Page):
                 View("/register",RegisterContent()).set(page)
             case "/entries":
                 View("/entries",EntriesContent()).set(page)
+            case "/qrScanner":
+                View("/qrScanner",qrScannerContent()).set(page)
+            case "/attendance":
+                View("/attendance",AttendanceContent()).set(page)
             case _:
                 View("/home",HomeContent()).set(page)
         
