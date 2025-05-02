@@ -36,17 +36,20 @@ def RegisterContent():
         output_image = Image.fromarray(image)
         output_path = imagePath.replace(".png", ".png")
         output_image.save(output_path)
-
-        # TRANSFORM IMAGE
         
         # STORE IN DATABASE
         conn = sqlite3.connect("storage.db")
         cursor = conn.cursor()
         cursor.execute("INSERT OR IGNORE INTO students (name, student_id, qr) VALUES (?, ?, ?)", ((textFieldName.value).strip(),(textFieldID.value).strip(), f"assets/QRs/{textFieldID.value}.png"))
+        
+        registerCard.visible = True
+        activeCard.visible = False
+        
         textFieldName.value = ""
         textFieldID.value = ""
         cardNameText.value = "Full Name"
         cardIDText.value = "Student ID"
+
 
         e.page.update()
         conn.commit()
@@ -70,26 +73,38 @@ def RegisterContent():
     cardIDText = ft.Text("Student ID",size=fontSize,weight="bold",width=200)
     textFieldName = TextField("Name",setCardText)
     textFieldID = TextField("Student ID",setCardID)
+    
+    activeCard = ft.Stack([
+        ft.Image(src="idCardEmpty.png",width=appWidth*0.8),
+        ft.Container(
+            content=ft.Column(
+                controls=[
+                    ft.Container(
+                        width=205,
+                        height=80,
+                        content=cardNameText
+                    ),
+                    cardIDText
+                ]
+            ),
+            left=38,
+            top=50
+        )
+    ])
 
-    card = ft.Container(
-        content= ft.Stack([
-            ft.Image("blankCard.png", width=appWidth*0.8),
-            ft.Container(
-                content=ft.Column(
-                    controls=[
-                        ft.Container(
-                            width=205,
-                            height=80,
-                            content=cardNameText
-                        ),
-                        cardIDText
-                    ]
+    registerCard = ft.Stack([
+        ft.Image(src="blankCard.png",width=appWidth*0.8),
+        ft.Container(content=ft.Column(
+            controls=[
+                ft.Container(
+                    width=205,
+                    height=80,
+                    content=cardNameText
                 ),
-                left=38,
-                top=50
-            )
-        ])
-    )
+                cardIDText
+            ]
+        ))
+    ])
 
     content = ft.Container(width=appWidth,height=appHeight,
         content=ft.Column(
@@ -105,24 +120,8 @@ def RegisterContent():
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 ),
-                # card,
-                ft.Stack([
-                    ft.Image(src="idCardEmpty.png",width=appWidth*0.8),
-                    ft.Container(
-                        content=ft.Column(
-                            controls=[
-                                ft.Container(
-                                    width=205,
-                                    height=80,
-                                    content=cardNameText
-                                ),
-                                cardIDText
-                            ]
-                        ),
-                        left=38,
-                        top=50
-                    )
-                ])
+                activeCard,
+                registerCard
             ],
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             spacing=20
