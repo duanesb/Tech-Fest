@@ -42,10 +42,10 @@ def main(page: ft.Page):
         match(page.route):
             case "/register":
                 View("/register",RegisterContent()).set(page)
-            case "/entries":
-                View("/entries",EntriesContent()).set(page)
             case "/qrScanner":
                 View("/qrScanner",qrScannerContent()).set(page)
+            case "/entries":
+                View("/entries",EntriesContent()).set(page)
             case "/attendance":
                 View("/attendance",AttendanceContent()).set(page)
             case _:
