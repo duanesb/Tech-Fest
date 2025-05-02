@@ -53,11 +53,6 @@ def RegisterContent():
         conn.close()
 
     def setCardText(e):
-        max_width = 200  # Width of the container
-        max_lines = 2
-        base_font_size = 20 / 0.61
-        min_font_size = 10
-
         cardNameText.value = e.control.value
         maxLenChar = math.floor(205/(0.61*fontSize)*2)-1
         if(len(cardNameText.value) > maxLenChar):
@@ -76,6 +71,20 @@ def RegisterContent():
     textFieldName = TextField("Name",setCardText)
     textFieldID = TextField("Student ID",setCardID)
 
+    card = ft.Container(
+        content= ft.Stack([
+            ft.Image("blankCard.png"),
+            ft.Column(
+                controls=[
+                    ft.Text("test"),
+                    ft.Text("test2")
+                ],
+                left=38,
+                top=50
+            )
+        ])
+    )
+
     content = ft.Container(width=appWidth,height=appHeight,
         content=ft.Column(
             controls=[
@@ -90,23 +99,24 @@ def RegisterContent():
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 ),
-                ft.Stack([
-                    ft.Image(src="idCardEmpty.png",width=appWidth*0.8),
-                    ft.Container(
-                        content=ft.Column(
-                            controls=[
-                                ft.Container(
-                                    width=205,
-                                    height=80,
-                                    content=cardNameText
-                                ),
-                                cardIDText
-                            ]
-                        ),
-                        left=38,
-                        top=50
-                    )
-                ])
+                card,
+                # ft.Stack([
+                #     ft.Image(src="idCardEmpty.png",width=appWidth*0.8),
+                #     ft.Container(
+                #         content=ft.Column(
+                #             controls=[
+                #                 ft.Container(
+                #                     width=205,
+                #                     height=80,
+                #                     content=cardNameText
+                #                 ),
+                #                 cardIDText
+                #             ]
+                #         ),
+                #         left=38,
+                #         top=50
+                #     )
+                # ])
             ],
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             spacing=20
