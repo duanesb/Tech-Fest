@@ -73,12 +73,18 @@ def RegisterContent():
 
     card = ft.Container(
         content= ft.Stack([
-            ft.Image("blankCard.png"),
-            ft.Column(
-                controls=[
-                    ft.Text("test"),
-                    ft.Text("test2")
-                ],
+            ft.Image("blankCard.png", width=appWidth*0.8),
+            ft.Container(
+                content=ft.Column(
+                    controls=[
+                        ft.Container(
+                            width=205,
+                            height=80,
+                            content=cardNameText
+                        ),
+                        cardIDText
+                    ]
+                ),
                 left=38,
                 top=50
             )
@@ -99,24 +105,24 @@ def RegisterContent():
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 ),
-                card,
-                # ft.Stack([
-                #     ft.Image(src="idCardEmpty.png",width=appWidth*0.8),
-                #     ft.Container(
-                #         content=ft.Column(
-                #             controls=[
-                #                 ft.Container(
-                #                     width=205,
-                #                     height=80,
-                #                     content=cardNameText
-                #                 ),
-                #                 cardIDText
-                #             ]
-                #         ),
-                #         left=38,
-                #         top=50
-                #     )
-                # ])
+                # card,
+                ft.Stack([
+                    ft.Image(src="idCardEmpty.png",width=appWidth*0.8),
+                    ft.Container(
+                        content=ft.Column(
+                            controls=[
+                                ft.Container(
+                                    width=205,
+                                    height=80,
+                                    content=cardNameText
+                                ),
+                                cardIDText
+                            ]
+                        ),
+                        left=38,
+                        top=50
+                    )
+                ])
             ],
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             spacing=20

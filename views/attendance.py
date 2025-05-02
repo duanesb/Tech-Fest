@@ -42,7 +42,6 @@ def AttendanceContent():
 
     def exportDatabase():
         conn = sqlite3.connect("storage.db")
-        test = pd.read_sql_query("SELECT * FROM attendance WHERE ")
         print(records)
 
 
