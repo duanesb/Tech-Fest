@@ -10,16 +10,22 @@ from views.qrScanner import qrScannerContent
 from views.attendance import AttendanceContent
 
 # DATABASE CONFIG
-conn = sqlite3.connect("attendance.db")
+conn = sqlite3.connect("storage.db")
 cursor = conn.cursor()
 
-cursor.execute('''
+cursor.executescript('''
     CREATE TABLE IF NOT EXISTS students (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         student_id TEXT UNIQUE NOT NULL,
         qr TEXT UNIQUE NOT NULL
-    )
+    );
+    CREATE TABLE IF NOT EXISTS attendance (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        student_id TEXT NOT NULL,
+        name TEXT NOT NULL,
+        timestamp TEXT NOT NULL
+    );
 ''')
 conn.commit()
 conn.close()

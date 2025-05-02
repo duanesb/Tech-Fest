@@ -27,7 +27,7 @@ def scan_qr():
     cv2.destroyAllWindows()
 
 def mark_attendance(student_id):
-    conn = sqlite3.connect("attendance.db")
+    conn = sqlite3.connect("storage.db")
     cursor = conn.cursor()
     
     cursor.execute("SELECT name FROM students WHERE student_id = ?", (student_id,))
