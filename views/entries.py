@@ -31,24 +31,26 @@ def EntriesContent():
         height=appHeight,
         content=ft.Column(
             controls=[
-                ft.Row(
-                    controls=[
-                        ElevatedButton("Return Home", lambda _: _.page.go("/home")),
-                        ElevatedButton("Select", None),
-                    ],
-                    alignment=ft.MainAxisAlignment.CENTER
-                ),
-                ft.Divider(),
                 ft.Text(
                     "Registered Students",
                     size=20,
                     weight=ft.FontWeight.BOLD,
                     color=ft.colors.BLACK
                 ),
-                ft.Column(
-                    controls=student_list,
-                    scroll=ft.ScrollMode.AUTO,
-                    expand=True
+                ft.Container(
+                    content = ft.Column(
+                        controls=student_list,
+                        scroll=ft.ScrollMode.AUTO,
+                        expand=True,
+                    ),
+                    height=appHeight-180
+                ),
+                ft.Divider(),
+                ft.Row(
+                    controls=[
+                        ElevatedButton("Return Home", lambda _: _.page.go("/home")),
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER
                 ),
             ]
         )

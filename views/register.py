@@ -11,7 +11,6 @@ fontSize = 25
 def RegisterContent():
     def registerStudent(e):
         # CREATE FOLDER FOR STUDENT
-        # os.makedirs("assets/")
         # GENERATE QR CODE
         imagePath = f"assets/QRs/{textFieldID.value}.png"
         qr = qrcode.make(textFieldID.value)

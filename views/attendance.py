@@ -2,6 +2,7 @@ import flet as ft
 from objects import appWidth, appHeight, ElevatedButton, TextField
 import sqlite3
 from datetime import datetime
+import pandas as pd
 
 def AttendanceContent():
     today = datetime.now().strftime("%Y-%m-%d")
@@ -39,6 +40,12 @@ def AttendanceContent():
         border=ft.border.all(1, ft.colors.BLACK)
     )
 
+    def exportDatabase():
+        conn = sqlite3.connect("storage.db")
+        test = pd.read_sql_query("SELECT * FROM attendance WHERE ")
+        print(records)
+
+
     content = ft.Container(
         width=appWidth,
         height=appHeight,
@@ -51,6 +58,7 @@ def AttendanceContent():
                 ft.Row(
                     controls=[
                         ElevatedButton("Return Home", lambda e: e.page.go("/home")),
+                        ElevatedButton("Export as CSV", exportDatabase())
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 )
