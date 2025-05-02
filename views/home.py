@@ -12,7 +12,6 @@ def HomeContent():
                         ElevatedButton("Register Student",lambda _:_.page.go("/register")),
                         ElevatedButton("View Entries",lambda _:_.page.go("/entries")),
                         ElevatedButton("Scan QRs",lambda _:_.page.go("/qrScanner")),
-                        ElevatedButton("View Attendance",lambda _:_.page.go("/attendance"))
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,
                     wrap=True

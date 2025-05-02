@@ -30,11 +30,11 @@ def qrScannerContent():
                 # MARK THE ATTENDANCE
                 conn = sqlite3.connect("storage.db")
                 cursor = conn.cursor()
-                cursor.execute("SELECT name FROM students WHERE student_id = ?", (qrStudentID,))
-                row = cursor.fetchone()
-                print(row)
-                if row:
-                    name = row[0]
+                cursor.execute("SELECT * FROM students WHERE student_id = ?", (qrStudentID,))
+                qrMatchStudent = cursor.fetchone()
+                print(qrMatchStudent)
+                if qrMatchStudent:
+                    qrMatchName = qrMatchStudent[1]
                     now = datetime.now()
 
                     # CHECK IF ONE MINUTE HAS PASSED AFTER LAST REGISTRATION OF THE SAME QR
@@ -50,18 +50,11 @@ def qrScannerContent():
                             continue
                     
                     timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
-                    cursor.execute("""
-                        CREATE TABLE IF NOT EXISTS attendance (
-                            id INTEGER PRIMARY KEY AUTOINCREMENT,
-                            student_id TEXT NOT NULL,
-                            name       TEXT NOT NULL,
-                            timestamp  TEXT NOT NULL
-                        )
-                    """)
-                    # cursor.execute(
-                    #     "INSERT INTO attendance (student_id, name, timestamp) VALUES (?, ?, ?)",
-                    #     (qrStudentID, name, timestamp)
-                    # )
+                    print(qrMatchName)
+                    cursor.execute(
+                        "INSERT INTO attendance (student_id, name, timestamp) VALUES (?, ?, ?)",
+                        (qrStudentID, qrMatchName, timestamp)
+                    )
                     print(f"Inserted at timestamp: {timestamp}")
                     conn.commit()
                 conn.close()
