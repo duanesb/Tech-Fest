@@ -69,13 +69,11 @@ def RegisterContent():
 
         e.page.update()
 
-
-    
     def setCardID(e):
         cardIDText.value = e.control.value
         e.page.update()
 
-    cardNameText = ft.Text("Full Name",size=fontSize,weight="bold",bgcolor="black", font_family="please", overflow=ft.TextOverflow.CLIP)
+    cardNameText = ft.Text("Full Name",size=fontSize,weight="bold", font_family="please", overflow=ft.TextOverflow.CLIP)
     cardIDText = ft.Text("Student ID",size=fontSize,weight="bold",width=200)
     textFieldName = TextField("Name",setCardText)
     textFieldID = TextField("Student ID",setCardID)
