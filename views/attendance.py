@@ -40,9 +40,25 @@ def AttendanceContent():
         border=ft.border.all(1, ft.colors.BLACK)
     )
 
-    def exportDatabase():
+    def exportDatabase(e):
         conn = sqlite3.connect("storage.db")
-        print(records)
+        today = datetime.now().strftime("%Y-%m-%d")
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT student_id, name, timestamp FROM attendance WHERE timestamp LIKE ? ORDER BY timestamp",
+            (f"{today}%",)
+        )
+        records = cursor.fetchall()
+        conn.close()
+
+        # Convert to DataFrame and export to CSV
+        df = pd.DataFrame(records, columns=["Student ID", "Name", "Timestamp"])
+        csv_filename = f"Attendance_{today}.csv"
+        df.to_csv(csv_filename, index=False)
+
+        print(f"CSV exported as {csv_filename}")
+
+
 
 
     content = ft.Container(
@@ -57,7 +73,7 @@ def AttendanceContent():
                 ft.Row(
                     controls=[
                         ElevatedButton("Return Home", lambda e: e.page.go("/home")),
-                        ElevatedButton("Export as CSV", exportDatabase())
+                        ElevatedButton("Export as CSV", lambda e: exportDatabase(e))
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 )
