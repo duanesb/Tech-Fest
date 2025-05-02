@@ -5,6 +5,7 @@ import qrcode
 from PIL import Image
 import numpy as np
 import os
+import math
 fontSize = 25
 
 def RegisterContent():
@@ -42,7 +43,7 @@ def RegisterContent():
         # STORE IN DATABASE
         conn = sqlite3.connect("attendance.db")
         cursor = conn.cursor()
-        cursor.execute("INSERT OR IGNORE INTO students (name, student_id, qr) VALUES (?, ?, ?)", (textFieldName.value,textFieldID.value, f"assets/QRs/{textFieldID.value}.png"))
+        cursor.execute("INSERT OR IGNORE INTO students (name, student_id, qr) VALUES (?, ?, ?)", ((textFieldName.value).strip(),(textFieldID.value).strip(), f"assets/QRs/{textFieldID.value}.png"))
         textFieldName.value = ""
         textFieldID.value = ""
         cardNameText.value = "Full Name"
@@ -54,12 +55,12 @@ def RegisterContent():
 
     def setCardText(e):
         cardNameText.value = e.control.value
-        if(len(cardNameText.value) > 20):
-            # print(len(cardNameText.value) % 20)
-            cardNameText.size = fontSize - 0.61*(len(cardNameText.value) % 20)
+        maxLenChar = math.floor(205/(0.61*fontSize)*2)-1
+        print(maxLenChar)
+        if(len(cardNameText.value) > maxLenChar):
+            cardNameText.size = fontSize - 0.61*(len(cardNameText.value) % maxLenChar)
         else:
             cardNameText.size = fontSize
-        # print((0.61*cardNameText.size)*len(cardNameText.value))
 
         e.page.update()
     
@@ -67,7 +68,7 @@ def RegisterContent():
         cardIDText.value = e.control.value
         e.page.update()
 
-    cardNameText = ft.Text("Full Name",size=fontSize,weight="bold",bgcolor="black", font_family="please", overflow=ft.TextOverflow.CLIP)
+    cardNameText = ft.Text("Full Name",size=fontSize,weight="bold",font_family="please", overflow=ft.TextOverflow.CLIP)
     cardIDText = ft.Text("Student ID",size=fontSize,weight="bold",width=200)
     textFieldName = TextField("Name",setCardText)
     textFieldID = TextField("Student ID",setCardID)
@@ -93,8 +94,7 @@ def RegisterContent():
                             controls=[
                                 ft.Container(
                                     width=205,
-                                    height=94,
-                                    bgcolor="red",
+                                    height=80,
                                     content=cardNameText
                                 ),
                                 cardIDText
