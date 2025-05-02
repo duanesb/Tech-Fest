@@ -4,10 +4,9 @@ import sqlite3
 from datetime import datetime
 
 def AttendanceContent():
-    # Get today's date in YYYY-MM-DD
     today = datetime.now().strftime("%Y-%m-%d")
 
-    # Fetch today's attendance records
+    # GET DAILY RESULTS
     conn = sqlite3.connect("storage.db")
     cursor = conn.cursor()
     cursor.execute(
@@ -17,7 +16,7 @@ def AttendanceContent():
     records = cursor.fetchall()
     conn.close()
 
-    # Build DataTable rows
+    # TABLE
     rows = []
     for student_id, name, timestamp in records:
         # Show only the time portion HH:MM:SS
@@ -29,8 +28,7 @@ def AttendanceContent():
                 ft.DataCell(ft.Text(time_str,color="black")),
             ])
         )
-
-    # Create the table
+    
     table = ft.DataTable(
         columns=[
             ft.DataColumn(ft.Text("Student ID", weight=ft.FontWeight.BOLD,color="black")),
@@ -41,7 +39,6 @@ def AttendanceContent():
         border=ft.border.all(1, ft.colors.BLACK)
     )
 
-    # Build the container
     content = ft.Container(
         width=appWidth,
         height=appHeight,
