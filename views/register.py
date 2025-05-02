@@ -5,6 +5,7 @@ import qrcode
 from PIL import Image
 import numpy as np
 import os
+fontSize = 25
 
 def RegisterContent():
     def registerStudent(e):
@@ -53,7 +54,12 @@ def RegisterContent():
 
     def setCardText(e):
         cardNameText.value = e.control.value
-        print((0.61*cardNameText.size)*len(cardNameText.value))
+        if(len(cardNameText.value) > 20):
+            # print(len(cardNameText.value) % 20)
+            cardNameText.size = fontSize - 0.61*(len(cardNameText.value) % 20)
+        else:
+            cardNameText.size = fontSize
+        # print((0.61*cardNameText.size)*len(cardNameText.value))
 
         e.page.update()
     
@@ -61,8 +67,8 @@ def RegisterContent():
         cardIDText.value = e.control.value
         e.page.update()
 
-    cardNameText = ft.Text("Full Name",size=20/0.61,weight="bold",bgcolor="black", font_family="please")
-    cardIDText = ft.Text("Student ID",size=30,weight="bold",width=200)
+    cardNameText = ft.Text("Full Name",size=20/0.61,weight="bold",bgcolor="black", font_family="please", overflow=ft.TextOverflow.CLIP)
+    cardIDText = ft.Text("Student ID",size=fontSize,weight="bold",width=200)
     textFieldName = TextField("Name",setCardText)
     textFieldID = TextField("Student ID",setCardID)
 
@@ -86,7 +92,7 @@ def RegisterContent():
                         content=ft.Column(
                             controls=[
                                 ft.Container(
-                                    width=200,
+                                    width=205,
                                     height=94,
                                     bgcolor="red",
                                     content=cardNameText
