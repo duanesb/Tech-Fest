@@ -101,7 +101,8 @@ def RegisterContent():
                     height=80,
                     content=cardNameText
                 ),
-                cardIDText
+                cardIDText,
+                ft.Image(f"QRs/{cardIDText.value.strip()}.png")
             ]
         ))
     ])
