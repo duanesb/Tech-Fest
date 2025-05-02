@@ -5,6 +5,7 @@ import qrcode
 from PIL import Image
 import numpy as np
 import os
+fontSize = 25
 
 def RegisterContent():
     def registerStudent(e):
@@ -52,17 +53,46 @@ def RegisterContent():
         conn.close()
 
     def setCardText(e):
+        max_width = 200  # Width of the container
+        max_lines = 2
+        base_font_size = 20 / 0.61
+        min_font_size = 10
+
         cardNameText.value = e.control.value
-        print((0.61*cardNameText.size)*len(cardNameText.value))
+<<<<<<< HEAD
+        cardNameText.max_lines = max_lines  # Allow up to 2 lines
+        cardNameText.no_wrap = False  # Allow text wrapping
+
+        text_length = len(e.control.value)
+        estimated_single_line_width = (0.61 * base_font_size) * text_length
+
+    # Two lines means double the width available (kind of)
+        if estimated_single_line_width > max_width * max_lines:
+        # Too wide even for 2 lines: shrink text
+            scale_factor = (max_width * max_lines) / estimated_single_line_width
+            new_font_size = base_font_size * scale_factor
+            cardNameText.size = max(new_font_size, min_font_size)  # Don't shrink too much
+        else:
+            cardNameText.size = base_font_size
+=======
+        if(len(cardNameText.value) > 20):
+            # print(len(cardNameText.value) % 20)
+            cardNameText.size = fontSize - 0.61*(len(cardNameText.value) % 20)
+        else:
+            cardNameText.size = fontSize
+        # print((0.61*cardNameText.size)*len(cardNameText.value))
+>>>>>>> 82d8feb2d0e1a4578d35969321907b9a4001278d
 
         e.page.update()
+
+
     
     def setCardID(e):
         cardIDText.value = e.control.value
         e.page.update()
 
-    cardNameText = ft.Text("Full Name",size=20/0.61,weight="bold",bgcolor="black", font_family="please")
-    cardIDText = ft.Text("Student ID",size=30,weight="bold",width=200)
+    cardNameText = ft.Text("Full Name",size=20/0.61,weight="bold",bgcolor="black", font_family="please", overflow=ft.TextOverflow.CLIP)
+    cardIDText = ft.Text("Student ID",size=fontSize,weight="bold",width=200)
     textFieldName = TextField("Name",setCardText)
     textFieldID = TextField("Student ID",setCardID)
 
@@ -86,7 +116,7 @@ def RegisterContent():
                         content=ft.Column(
                             controls=[
                                 ft.Container(
-                                    width=200,
+                                    width=205,
                                     height=94,
                                     bgcolor="red",
                                     content=cardNameText
