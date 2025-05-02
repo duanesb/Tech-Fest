@@ -61,7 +61,6 @@ def RegisterContent():
 
         cardNameText.value = e.control.value
         maxLenChar = math.floor(205/(0.61*fontSize)*2)-1
-        print(maxLenChar)
         if(len(cardNameText.value) > maxLenChar):
             cardNameText.size = fontSize - 0.61*(len(cardNameText.value) % maxLenChar)
         else:
