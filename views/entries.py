@@ -3,7 +3,7 @@ import sqlite3
 from objects import appWidth, appHeight, ElevatedButton
 
 def fetch_students():
-    conn = sqlite3.connect("attendance.db")
+    conn = sqlite3.connect("storage.db")
     cursor = conn.cursor()
 
     # Pull all student entries

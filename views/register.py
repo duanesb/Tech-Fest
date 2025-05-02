@@ -14,7 +14,7 @@ def RegisterContent():
         # os.makedirs("assets/")
         # GENERATE QR CODE
         imagePath = f"assets/QRs/{textFieldID.value}.png"
-        qr = qrcode.make(f"{textFieldName.value}\n{textFieldID.value}")
+        qr = qrcode.make(textFieldID.value)
         qr.save(imagePath)
         
         image = np.array(Image.open(imagePath).convert("RGBA"))
@@ -41,7 +41,7 @@ def RegisterContent():
         # TRANSFORM IMAGE
         
         # STORE IN DATABASE
-        conn = sqlite3.connect("attendance.db")
+        conn = sqlite3.connect("storage.db")
         cursor = conn.cursor()
         cursor.execute("INSERT OR IGNORE INTO students (name, student_id, qr) VALUES (?, ?, ?)", ((textFieldName.value).strip(),(textFieldID.value).strip(), f"assets/QRs/{textFieldID.value}.png"))
         textFieldName.value = ""
