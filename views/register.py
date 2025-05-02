@@ -54,6 +54,11 @@ def RegisterContent():
         conn.close()
 
     def setCardText(e):
+        max_width = 200  # Width of the container
+        max_lines = 2
+        base_font_size = 20 / 0.61
+        min_font_size = 10
+
         cardNameText.value = e.control.value
         maxLenChar = math.floor(205/(0.61*fontSize)*2)-1
         print(maxLenChar)
@@ -63,12 +68,14 @@ def RegisterContent():
             cardNameText.size = fontSize
 
         e.page.update()
+
+
     
     def setCardID(e):
         cardIDText.value = e.control.value
         e.page.update()
 
-    cardNameText = ft.Text("Full Name",size=fontSize,weight="bold",font_family="please", overflow=ft.TextOverflow.CLIP)
+    cardNameText = ft.Text("Full Name",size=fontSize,weight="bold",bgcolor="black", font_family="please", overflow=ft.TextOverflow.CLIP)
     cardIDText = ft.Text("Student ID",size=fontSize,weight="bold",width=200)
     textFieldName = TextField("Name",setCardText)
     textFieldID = TextField("Student ID",setCardID)

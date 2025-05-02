@@ -8,7 +8,11 @@ def scan_qr():
     
     while True:
         _, frame = cap.read()
-        for barcode in decode(frame):
+        
+        # Invert colors if QR is white on black background
+        inverted_frame = cv2.bitwise_not(frame)
+        
+        for barcode in decode(inverted_frame):
             student_id = barcode.data.decode("utf-8")
             mark_attendance(student_id)
             cap.release()
